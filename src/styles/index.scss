@@ -1,0 +1,8 @@
+@import "custom";
+@import "~bootstrap/scss/bootstrap";
+
+$body-color: blue;
+
+body {
+  color: $body-color;
+}
