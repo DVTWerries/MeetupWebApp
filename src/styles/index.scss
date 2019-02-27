@@ -1,7 +1,60 @@
+$body-bg: #D8D7D7;
+
 @import "~bootstrap/scss/bootstrap";
 
-$body-color: blue;
-
 body {
-  color: $body-color;
+  background-color: $body-bg;
+}
+
+.card-title{
+  color: black;
+}
+
+.row{
+  background-color: white;
+  border-radius: 5px;
+}
+
+@media (min-width: 576px) { 
+  .card-deck{
+    .card{
+      flex: none;
+      margin-bottom: 15px;
+    }
+  }
+
+  .container-fluid{
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 0;
+    padding-left: 30px;
+  }
+  
+  .row{
+    padding: 20px 0 0 35px;
+    margin-right: 80px;
+    margin-left: 80px;
+  }
+  
+  .card-deck{
+    margin-left: 0;
+  }
+}
+
+.col-lg-3 {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.col-md-4{
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.card-footer{
+  padding: 0;
+}
+
+.btn-block{
+  height: 100%;
 }
