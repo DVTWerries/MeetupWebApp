@@ -13,10 +13,20 @@ body {
 .row{
   background-color: white;
   border-radius: 5px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.card-group{
+  padding: 20px;
+}
+
+.card{
+  margin: 15px;
 }
 
 @media (min-width: 576px) { 
-  .card-deck{
+  .card-group{
     .card{
       flex: none;
       margin-bottom: 15px;
@@ -28,12 +38,6 @@ body {
     margin-right: 0;
     padding-right: 0;
     padding-left: 30px;
-  }
-  
-  .row{
-    padding: 20px 0 0 35px;
-    margin-right: 80px;
-    margin-left: 80px;
   }
   
   .card-deck{
@@ -57,4 +61,9 @@ body {
 
 .btn-block{
   height: 100%;
+}
+
+.header{
+  background-color: #F04C4C;
+
 }

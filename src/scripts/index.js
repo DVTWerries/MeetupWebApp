@@ -54,7 +54,7 @@ $(function () {
 });
 
 $(function () {
-    let $cardDeck = $('.card-deck');
+    let $cardGroup = $('.card-group');
 
     $.ajax({
         type: 'GET',
@@ -64,14 +64,12 @@ $(function () {
                 let imageUrl = (item.group_photo ||
                     item.key_photo ||
                     item.meta_category.photo || {}).photo_link;
-                $cardDeck.append(`
-                    <div class="card col-lg-3 col-md-4 col-sm-4" >
+                $cardGroup.append(`
+                    <div class="card col-lg-3 col-md-4 col-sm-6" >
                         <img src="${imageUrl}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">${item.name}</h5>
-                        </div>
+                        <h5 class="card-title">${item.name}</h5>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">View</a>>
+                            <a href="#" class="btn btn-primary btn-block">View</a>
                         </div>
                     </div>
                 `);
