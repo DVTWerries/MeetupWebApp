@@ -3,67 +3,55 @@ $body-bg: #D8D7D7;
 @import "~bootstrap/scss/bootstrap";
 
 body {
-  background-color: $body-bg;
+  overflow-x: hidden;
 }
 
-.card-title{
-  color: black;
-}
-
-.row{
-  background-color: white;
-  border-radius: 5px;
-  margin-left: 15%;
-  margin-right: 15%;
-}
-
-.card-group{
-  padding: 20px;
-}
-
-.card{
-  margin: 15px;
-}
-
-@media (min-width: 576px) { 
-  .card-group{
-    .card{
-      flex: none;
-      margin-bottom: 15px;
-    }
-  }
-
-  .container-fluid{
-    margin-left: 0;
-    margin-right: 0;
-    padding-right: 0;
-    padding-left: 30px;
-  }
-  
-  .card-deck{
-    margin-left: 0;
-  }
-}
-
-.col-lg-3 {
+.container{
   padding-right: 0;
   padding-left: 0;
+  margin-right: 0;
+  margin-left: 0;
 }
 
-.col-md-4{
-  padding-right: 0;
-  padding-left: 0;
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
 }
 
-.card-footer{
-  padding: 0;
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
 }
 
-.btn-block{
-  height: 100%;
+#sidebar-wrapper .list-group {
+  width: 15rem;
 }
 
-.header{
-  background-color: #F04C4C;
-
+#page-content-wrapper {
+  min-width: 100vw;
 }
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+
