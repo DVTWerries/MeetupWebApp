@@ -4,11 +4,11 @@ $body-bg: #D8D7D7;
 
 body {
   overflow-x: hidden;
-  background-image: url(../../public/Images/meetup_nav.gif);
+  background-image: url(../../public/Images/1_nZFGtkm_1ILOsB76hBgmAA.gif);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  opacity: 60%;
+  opacity: 0.9;
 }
 
 .container-fluid{
@@ -17,12 +17,12 @@ body {
 
 .sidebar-container{
   padding-left: 0;
+  position: sticky;
 }
 
 .img-thumbnail{
-  height: 250px;
-  width: 18rem;
-  border-radius: none;
+  height: 21rem;
+  width: 21rem;
   padding: 0;
 }
 

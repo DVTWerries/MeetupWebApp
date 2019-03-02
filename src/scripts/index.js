@@ -50,6 +50,8 @@ $(function () {
                     </div>
                 </div>
             `);
+            $(".spinner-border").remove();
+            $('#exampleModalCenter').modal('show');
         }
     });
 });
@@ -66,7 +68,7 @@ $(function () {
                     item.key_photo ||
                     item.meta_category.photo || {}).photo_link;
                 $cardHolder.append(`
-                    <div class="col-lg-4 col-md-4 col-6 loading">
+                    <div class="col-lg-4 col-md-6 col-6 loading">
                         <a href="http://localhost:8080/details.html?${item.urlname}" class="d-block mb-4 h-100">
                             <img class="img-fluid img-thumbnail" src="${imageUrl}" alt="">
                         </a>
@@ -79,28 +81,32 @@ $(function () {
 
         }, 
         error: function () {
-            $body.append(`
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                            ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+            if($('#exampleModalCenter') === null) {
+                $body.append(`
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            `);
-            $('#exampleModalCenter').modal('show');
+            `   );
+                $('#exampleModalCenter').modal('show');
+            }
+            $(".spinner-border").remove();
+            
         }
     });
 

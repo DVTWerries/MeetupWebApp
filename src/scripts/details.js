@@ -45,6 +45,8 @@ $(function () {
                     </div>
                 </div>
             `);
+            $(".spinner-border").remove();
+            $('#exampleModalCenter').modal('show');
         }
     });
 }, false);
