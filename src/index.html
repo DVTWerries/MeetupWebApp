@@ -10,14 +10,19 @@
 <body class="body">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 sidebar-container nav">
+      <div class="col-md-3 sidebar-container">
         <div class="bg-light border-right" id="sidebar-wrapper">
           <div class="sidebar-heading">Select Category:</div>
           <div class="list-group list-group-flush">
           </div>
         </div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-1" id="nav-toggler">
+        <button class="btn btn-primary" id="menu-toggle">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="col-md-8" id="card-container">
         <div class="row text-center text-lg-left card-holder">
         </div>
       </div>

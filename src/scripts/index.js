@@ -112,3 +112,10 @@ $(function () {
 
 });
 
+$("#menu-toggle").click(function(e) {
+    $(".sidebar-container").toggleClass("col-md-3");
+    $(".sidebar-container").toggle("sidebar-container");
+    // $(".nav-toggler").toggleClass("col-md-1");
+    // $(".card-container").toggleClass("col-md-8");
+  });
+
