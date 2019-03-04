@@ -16,6 +16,7 @@ body {
 }
 
 .sidebar-container{
+  // max-width: 25%;
   padding-left: 0;
   position: sticky;
 }
@@ -33,9 +34,22 @@ body {
   z-index: 1;
 }
 
-.loading{
-  animation: 4s fadeIn;
+.center{
+  // animation: slide 4s ;
+  // max-width: 0;
+  transition-delay: 5s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
+
+.loading{
+  animation: fadeIn 4s;
+}
+
+@keyframes slide {
+  0% {margin-left: 0%;}
+  100% {margin-left: -25%;}
+} 
 
 @keyframes fadeIn {
   0% {opacity: 0;}
