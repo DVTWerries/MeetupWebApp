@@ -9,7 +9,7 @@ let $body = $('.body');
 let $container = $('.container-fluid');
 
 $(function () {
-    let $listGroup = $('.list-group');
+    let $listGroup = $('.list-group-flush');
     $.ajax({
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/2/topic_categories?key=${apiKey}`,
@@ -24,7 +24,7 @@ $(function () {
         success: function (data) {
             $.each(data.results, function (i, item) {
                 $listGroup.append(`
-                    <a href="#" class="list-group-item list-group-item-action bg-light loading">${item.name}</a>
+                    <button type="button" class="btn btn-outline-secondary">${item.name}</button>
                 `);
             });
         },

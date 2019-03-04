@@ -15,12 +15,6 @@ body {
   display: none;
 }
 
-.sidebar-container{
-  // max-width: 25%;
-  padding-left: 0;
-  position: sticky;
-}
-
 .img-thumbnail{
   height: 21rem;
   width: 21rem;
@@ -46,6 +40,10 @@ body {
   animation: fadeIn 4s;
 }
 
+#center-content{
+  margin: 25%;
+}
+
 @keyframes slide {
   0% {margin-left: 0%;}
   100% {margin-left: -25%;}
@@ -57,6 +55,8 @@ body {
 } 
 
 #sidebar-wrapper {
+  padding-left: 0;
+  position: sticky;
   min-height: 100vh;
   margin-left: -15rem;
   -webkit-transition: margin .25s ease-out;
