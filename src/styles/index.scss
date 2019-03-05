@@ -11,10 +11,6 @@ body {
   opacity: 0.9;
 }
 
-.container-fluid{
-  display: none;
-}
-
 .img-thumbnail{
   height: 21rem;
   width: 21rem;
@@ -40,8 +36,29 @@ body {
   animation: fadeIn 4s;
 }
 
+.blockquote{
+  font-size: 1.85rem;
+}
+
+.card-holder{
+  margin: 10%;
+}
+
 #center-content{
-  margin: 25%;
+  margin: 13%;
+}
+
+@media (max-width: 401px) {
+  #center-content{
+    margin: 6%;
+  }
+}
+
+@media (min-width: 768px) {
+  #center-content{
+    margin: 25%;
+    margin-top: 20%;
+  }
 }
 
 @keyframes slide {

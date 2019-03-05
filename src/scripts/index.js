@@ -6,7 +6,8 @@ const apiKey = '1345494f356d223964372b57807f1f79';
 const baseURl = 'https://api.meetup.com';
 const herokuAppURL = 'https://cors-anywhere.herokuapp.com/';
 let $body = $('.body');
-let $container = $('.container-fluid');
+let $firstContent = $('#first-content');
+let $secondContent = $('#second-content');
 
 $(function () {
     let $listGroup = $('.list-group-flush');
@@ -19,14 +20,24 @@ $(function () {
                     <span class="sr-only">Loading...</span>
                 </div>
             `);
-            $container.addClass(".loading-screen");
+            $firstContent.addClass(".loading-screen");
         },
         success: function (data) {
+            let buttons = '';
+            let selectedButton = '';
+            let anotehrCategory  = '';
             $.each(data.results, function (i, item) {
-                $listGroup.append(`
-                    <button type="button" class="btn btn-outline-secondary">${item.name}</button>
-                `);
+                buttons = $(`<button type="button" class="btn btn-outline-secondary btnCategory">${item.name}</button>`)
+                .click(function () {
+
+                    getGroups(item.category_ids[0]);
+                });
+                $secondContent.append(buttons);
+                $listGroup.append(buttons);
             });
+            $(".spinner-border").remove();
+            $firstContent.removeClass(".loading-screen");
+            $secondContent.css("display", "none");
         },
         error: function () {
             $body.append(`
@@ -56,12 +67,20 @@ $(function () {
     });
 });
 
-$(function () {
+function getGroups(category_id) {
     let $cardHolder = $('.card-holder');
-
     $.ajax({
         type: 'GET',
-        url: `${herokuAppURL}${baseURl}/find/groups?key=${apiKey}`,
+        url: `${herokuAppURL}${baseURl}/find/groups?category=${category_id}&key=${apiKey}`,
+        beforeSend: function () {
+            $("#first-content").remove();
+            $body.append(`
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            `);
+            $secondContent.addClass(".loading-screen");
+        },
         success: function (data) {
             $.each(data, function (i, item) {
                 let imageUrl = (item.group_photo ||
@@ -75,8 +94,8 @@ $(function () {
                     </div>
                 `);
             });
-            $container.removeClass(".loading-screen");
-            $container.css("display", "block");
+            $secondContent.removeClass(".loading-screen");
+            $secondContent.css("display", "flex");
             $(".spinner-border").remove();
 
         }, 
@@ -110,7 +129,7 @@ $(function () {
         }
     });
 
-});
+};
 
 $("#menu-toggle").click(function(e) {
     $(".sidebar-container").toggleClass("center");
