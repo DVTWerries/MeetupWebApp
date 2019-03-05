@@ -9,22 +9,34 @@
 
 <body class="body">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3 sidebar-container">
-        <div class="bg-light border-right" id="sidebar-wrapper">
-          <div class="sidebar-heading">Select Category:</div>
-          <div class="list-group list-group-flush">
-          </div>
-        </div>
+    <div class="row" id="first-content">
+      <div class="d-flex flex-column  text-center" id="center-content">
+        <blockquote class="blockquote text-center">
+          <p class="mb-0">Hi Peeps! Welcome to Meetup JustGroups App</p>
+          <footer class="blockquote-footer">Developer <cite title="Source Title">Werner Buys</cite></footer>
+        </blockquote>
+        <h4>Select your Category:</h4>
+        <div class="list-group-flush bg-light"></div>
+      </div>
+    </div>
+    <div class="row justify-content-center" id="second-content">
+      <!-- <div class="col-md-3 bg-light border-right flex-column" id="sidebar-wrapper">
+        <div class="sidebar-heading">Select Category:</div>
+        <div class="list-group-flush"></div>
       </div>
       <div class="col-md-1" id="nav-toggler">
         <button class="btn btn-primary" id="menu-toggle">
-            <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
         </button>
+      </div> -->
+      <div class="col-md-2">
+          <button type="button" class="btn btn-outline-secondary">You selected</button>
       </div>
       <div class="col-md-8" id="card-container">
-        <div class="row text-center text-lg-left card-holder">
-        </div>
+        <div class="row text-center text-lg-left card-holder"></div>
+      </div>
+      <div class="col-md-2">
+          <button type="button" class="btn btn-outline-secondary">Select another category</button>
       </div>
     </div>
 
