@@ -1,1 +1,61 @@
 @import "~bootstrap/scss/bootstrap";
+
+.carousel-indicators{
+    position: fixed;
+}
+
+.carousel-indicators li{
+    background-color: black;
+}
+
+.spinner-border{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+}
+
+.container{
+    margin-top: 4rem;
+}
+
+.navbar{
+    justify-content: unset;
+}
+
+.navbar-brand{
+    padding-top: 0;
+}
+
+.carousel-caption{
+    color: black;
+}
+
+.btn-primary{
+    color: #212529;
+    background-color: white;
+    padding: 0.1rem 1.2rem;
+    text-align: center;
+}
+
+.card-img-top {
+    width: 50%;
+    height: 6rem;
+    border-radius: 10rem;
+    margin-left: 25%;
+    padding: 0.75rem;
+}
+
+.card-body {
+    text-align: center;
+    padding: 0;
+    padding-bottom: 0.5rem;
+}
+
+@media (max-width: 401px) {
+    .col-6{
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+  

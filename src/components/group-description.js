@@ -4,7 +4,7 @@ export default class GroupDescription extends HTMLElement {
     }
 
     get description() {
-        this.getAttribute('description');
+        return this.getAttribute('description');
     }
 
     set description(description) {
