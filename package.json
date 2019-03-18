@@ -54,6 +54,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "precss": "^4.0.0",
-    "save-dev": "^2.0.0"
+    "save-dev": "^2.0.0",
+    "webpack-icons-installer": "^2.0.0"
   }
 }

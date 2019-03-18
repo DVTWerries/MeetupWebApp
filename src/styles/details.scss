@@ -48,8 +48,29 @@
 
 .card-body {
     text-align: center;
-    padding: 0;
-    padding-bottom: 0.5rem;
+}
+
+.card-title{
+    margin-top: 0.75rem;
+}
+
+.card-text{
+    display: grid;
+    align-items: baseline;
+    grid-template-columns: auto auto;
+    grid-auto-flow: column;
+}
+
+.card-link{
+    border: 1px solid;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    grid-column: 3;
+}
+
+.meetup-holder{
+    border: none;
+    background-color: #f8f9fa;
 }
 
 @media (max-width: 401px) {

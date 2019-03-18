@@ -3,36 +3,53 @@ export default class GroupMeetup extends HTMLElement {
         super();
     }
 
-    get meetup() {
-        return this.getAttribute('meetup');
+    get name() {
+        return this.getAttribute('name');
     }
 
-    set meetup(meetup) {
-        this.setAttribute('meetup', meetup);
+    get date() {
+        return this.getAttribute('date');
+    }
+
+    get RSVP() {
+        return this.getAttribute('RSVP');
+    }
+
+    get venue() {
+        return this.getAttribute('venue');
+    }
+
+    set name(name) {
+        this.setAttribute('name', name);
+    }
+
+    set date(name) {
+        this.setAttribute('date', date);
+    }
+
+    set RSVP(RSVP) {
+        this.setAttribute('RSVP', RSVP);
+    }
+
+    set venue(venue) {
+        this.setAttribute('venue', venue);
     }
 
     static get observedAttributes() {
-        return ['meetup'];
-    }
-
-    attributeChangedCallback(attibute, oldVal, newVal) {
-        var groupCard = this.querySelector('.group-card');
-
-        switch(attibute) {
-            case 'meetup':
-                groupCard.innerHTML = `${this.imageURL}`;
-        }
+        return ['name', 'date', 'RSVP', 'venue'];
     }
 
     connectedCallback() {
         let template = `
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <h5 class="card-title"><span class="glyphicon glyphicon-time"></span>${this.date}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${this.name}</h6>
+                    <p><span class="glyphicon glyphicon-map-marker"></span>${this.venue}</p>
+                    <div class="card-text">
+                        <p><span class="glyphicon glyphicon-user"></span>${this.RSVP}</p>
+                        <a href="#" class="card-link">view</a>
+                    <div>
                 </div>
             </div>
         `;
