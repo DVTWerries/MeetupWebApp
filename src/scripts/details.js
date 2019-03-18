@@ -1,12 +1,13 @@
 import '../styles/details.scss';
 import 'bootstrap';
 import * as $ from 'jquery';
+import 'webpack-icons-installer';
 
 import ErrorModal from '../components/error-modal';
 import LoadingSpinner from '../components/spinner';
 import GroupDiscription from '../components/group-description';
 import MemberCard from '../components/member-card';
-import GroupHighlight from '../components/group-highlight';
+import GroupPhoto from '../components/group-photo';
 import GroupMeetup from '../components/group-meetup';
 import Header from '../components/header';
 
@@ -21,7 +22,7 @@ customElements.define("error-modal", ErrorModal);
 customElements.define("loading-spinner", LoadingSpinner);
 customElements.define("group-discription", GroupDiscription);
 customElements.define("member-card", MemberCard);
-customElements.define("group-highlight", GroupHighlight);
+customElements.define("group-photo", GroupPhoto);
 customElements.define("group-meetup", GroupMeetup);
 customElements.define("app-header", Header);
 
@@ -46,7 +47,7 @@ $(function () {
                 data.key_photo ||
                 data.meta_category.photo || {}).photo_link;
             carousalInner.append(`
-                <div class="carousel-item active" about-us-container>
+                <div class="carousel-item active about-us-container">
                     <app-header header="home"></app-header>
                     <div class="container">
                         <img src="${imageUrl}" class="d-block w-100" alt="...">
@@ -72,13 +73,27 @@ $(function () {
                 <div class="carousel-item">
                     <app-header header="meetups"></app-header>
                     <div class="container">
-                        <div class="row meetup-container"></div>
+                        <div class="row">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                </button>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <button class="dropdown-item" type="button" >Upcomming</button>
+                                    <button class="dropdown-item" type="button" >Past</button>
+                                </div>
+                            </div>
+                            <div class="card meetup-holder">
+                                <div class="card-body meetup-container"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <app-header header="highlights"></app-header>
+                    <app-header header="Photo's"></app-header>
                     <div class="container">
-                        <div class="row highlight-container"></div>
+                        <div class="row photos-container"></div>
                     </div>
                 </div>
             `);
@@ -122,9 +137,10 @@ function getMeetups(urlParameter) {
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/${urlParameter[1]}/events?status=past&key=${apiKey}`,
         success: function (data) {
+            console.log(data);
             $.each(data, function(i, item) {
                 meetupContainer.append(`
-                    <group-meetup class="col-md-4"></group-meetup>
+                    <group-meetup name="${item.name}" date="${item.local_date + " " + item.local_time}" RSVP="${item.yes_rsvp_count}" venue="${item.venue.name}" class="col-md-4"></group-meetup>
                 `);
             });   
         },
@@ -132,14 +148,15 @@ function getMeetups(urlParameter) {
 }
 
 function getHighlights(urlParameter) {
-    let highlightContainer = $('.highlight-container');
+    let photoContainer = $('.photos-container');
     $.ajax({
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/${urlParameter[1]}/photos?key=${apiKey}`,
         success: function (data) {
+            console.log(data);
             $.each(data, function(i, item) {
-                highlightContainer.append(`
-                    <group-highlight class="col-md-4"></group-highlight>
+                photoContainer.append(`
+                    <group-photo image="${item.photo_link}" class="col-md-4"></group-photo>
                 `);
             });
             loadingSpinner.setAttribute('display', 'none');  
