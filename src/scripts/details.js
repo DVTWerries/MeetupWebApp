@@ -47,10 +47,10 @@ $(function () {
                 data.key_photo ||
                 data.meta_category.photo || {}).photo_link;
             carousalInner.append(`
-                <div class="carousel-item active about-us-container">
+                <div class="carousel-item active">
                     <app-header header="home"></app-header>
                     <div class="container">
-                        <img src="${imageUrl}" class="d-block w-100" alt="...">
+                        <img src="${imageUrl}" class="d-block w-100 home-image" alt="...">
                         <div class="carousel-caption d-md-block">
                             <h5>${data.city}</h5>
                             <p>${data.members}</p>
@@ -137,7 +137,6 @@ function getMeetups(urlParameter) {
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/${urlParameter[1]}/events?status=past&key=${apiKey}`,
         success: function (data) {
-            console.log(data);
             $.each(data, function(i, item) {
                 meetupContainer.append(`
                     <group-meetup name="${item.name}" date="${item.local_date + " " + item.local_time}" RSVP="${item.yes_rsvp_count}" venue="${item.venue.name}" class="col-md-4"></group-meetup>
@@ -153,10 +152,9 @@ function getHighlights(urlParameter) {
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/${urlParameter[1]}/photos?key=${apiKey}`,
         success: function (data) {
-            console.log(data);
             $.each(data, function(i, item) {
                 photoContainer.append(`
-                    <group-photo image="${item.photo_link}" class="col-md-4"></group-photo>
+                    <group-photo image="${item.photo_link}" class="col-lg-4 col-md-4 col-sm-4 col-6"></group-photo>
                 `);
             });
             loadingSpinner.setAttribute('display', 'none');  

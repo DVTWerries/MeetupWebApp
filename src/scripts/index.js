@@ -1,10 +1,12 @@
 import '../styles/index.scss';
 import 'bootstrap';
 import * as $ from 'jquery';
+import 'webpack-icons-installer';
 import GroupCard from '../components/group-card';
 import ErrorModal from '../components/error-modal';
 import LoadingSpinner from '../components/spinner';
 import Button from '../components/button';
+import Header from '../components/header';
 
 const apiKey = '1345494f356d223964372b57807f1f79';
 const baseURl = 'https://api.meetup.com';
@@ -13,11 +15,13 @@ const $body = $('.body');
 const $firstContent = $('#first-content');
 const $secondContent = $('#second-content');
 let loadingSpinner;
+let header;
 
 customElements.define("group-card", GroupCard);
 customElements.define("error-modal", ErrorModal);
 customElements.define("loading-spinner", LoadingSpinner);
 customElements.define("app-button", Button);
+customElements.define("app-header", Header);
 
 $(function () {
     let $listGroup = $('.list-group-flush');
@@ -63,23 +67,22 @@ function getGroups(category_id, selectedCategory) {
             $("#first-content").remove();
             loadingSpinner.setAttribute('display', 'block');
             $secondContent.addClass(".loading-screen");
+            header = document.querySelector('app-header');
         },
         success: function (data) {
-            $secondContent.append(`
-                <app-button categoryName="${selectedCategory}" class="col-md-2"></app-button>
-            `);
+            header.setAttribute('header', selectedCategory);
             $.each(data, function (i, item) {
                 let imageUrl = (item.group_photo ||
                     item.key_photo ||
                     item.meta_category.photo || {}).photo_link;
                 $cardHolder.append(`
-                    <div class="col-lg-4 col-md-6 col-6 loading">
+                    <div class="col-lg-4 col-md-6 loading">
                         <group-card urlName="${item.urlname}" imageURL="${imageUrl}"></group-card>
                     </div>
                 `);
             });
             $secondContent.append(`
-                <app-button class="col-md-2"></app-button>
+                <app-button class="offset-lg-4 col-lg-4 offset-md-3 col-md-6 offset-sm-3 col-sm-6 col-12"></app-button>
             `);
             $secondContent.removeClass(".loading-screen");
             $secondContent.css("display", "flex");
