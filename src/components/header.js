@@ -16,22 +16,21 @@ export default class Header extends HTMLElement {
     }
 
     attributeChangedCallback(attibute, oldVal, newVal) {
-        var navbar = this.querySelector('.navbar');
-
+        var h3 = this.querySelector('h3');
         switch(attibute) {
-            case 'meetup':
-                navbar.innerHTML = `${this.header}`;
+            case 'header':
+                h3.innerHTML = `${this.header}`;
         }
     }
 
     connectedCallback() {
         let template = `
-            <nav class="navbar fixed-top navbar-light bg-light">
-                <a class="navbar-brand" href="#">
-                    <img src="../public/Images/iconfinder_social_media_network-24_1851682.png" width="30" height="30" alt="">
-                </a>
-                <h3>${this.header}</h3>
-            </nav>
+            <div class="header-style">
+                <a class="navbar-brand col-3 glyphicon glyphicon-chevron-left" href="#"></a>
+                <nav class="navbar navbar-light bg-light col-9">
+                    <h3>${this.header}</h3>
+                </nav>
+            </div>
         `;
 
 

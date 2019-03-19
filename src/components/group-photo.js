@@ -18,7 +18,7 @@ export default class GroupHighlight extends HTMLElement {
     connectedCallback() {
         let template = `
             <div class="image-container">
-                <img src="${this.image}" alt="sorry... picture could not load" />
+                <img class="group-photo" src="${this.image}" alt="sorry... picture could not load" />
             <div>
         `;
 
