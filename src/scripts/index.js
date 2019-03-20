@@ -101,8 +101,3 @@ function getGroups(category_id, selectedCategory) {
 
 };
 
-$("#menu-toggle").click(function(e) {
-    $(".sidebar-container").toggleClass("center");
-    //$("#card-container").toggleClass("center");
-  });
-

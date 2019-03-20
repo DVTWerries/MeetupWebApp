@@ -3,6 +3,10 @@ export default class Header extends HTMLElement {
         super();
     }
 
+    static get observedAttributes() {
+        return ['header'];
+    }
+
     get header() {
         return this.getAttribute('header');
     }
@@ -11,19 +15,20 @@ export default class Header extends HTMLElement {
         this.setAttribute('header', header);
     }
 
-    static get observedAttributes() {
-        return ['header'];
-    }
-
     attributeChangedCallback(attibute, oldVal, newVal) {
         var h3 = this.querySelector('h3');
+        console.log(h3);
+        console.log(newVal);
         switch(attibute) {
             case 'header':
-                h3.innerHTML = `${this.header}`;
+                if(h3 !== null) {
+                    h3.innerHTML = `${this.header}`;
+                }   
         }
     }
 
     connectedCallback() {
+        console.log('hello');
         let template = `
             <div class="header-style">
                 <a class="navbar-brand col-3 glyphicon glyphicon-chevron-left" href="#"></a>
