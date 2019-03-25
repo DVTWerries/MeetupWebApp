@@ -2,20 +2,18 @@ import '../styles/index.scss';
 import 'bootstrap';
 import * as $ from 'jquery';
 import 'webpack-icons-installer';
+
 import GroupCard from '../components/group-card';
 import ErrorModal from '../components/error-modal';
 import LoadingSpinner from '../components/spinner';
 import Button from '../components/button';
 import Header from '../components/header';
+import {apiKey, baseURl, herokuAppURL} from '../scripts/conf';
+import { displayModal, removeSpinner, displaySpinner, addLoadingContent, removeLoadingScreen, hideSecondContent, displaySecondContent, removeFirstContent } from './logic';
+import { appendLoadingSpinner, appendErrorModal, appendGroupCard, } from './appender';
 
-const apiKey = '1345494f356d223964372b57807f1f79';
-const baseURl = 'https://api.meetup.com';
-const herokuAppURL = 'https://cors-anywhere.herokuapp.com/';
-const $body = $('.body');
-const $firstContent = $('#first-content');
-const $secondContent = $('#second-content');
-let loadingSpinner;
 let header;
+let loadingSpinner;
 
 customElements.define("group-card", GroupCard);
 customElements.define("error-modal", ErrorModal);
@@ -29,11 +27,9 @@ $(function () {
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/2/topic_categories?key=${apiKey}`,
         beforeSend: function () {
-            $body.append(`
-                <loading-spinner></loading-spinner>
-            `);
-            $firstContent.addClass(".loading-screen");
+            appendLoadingSpinner();
             loadingSpinner = document.querySelector('loading-spinner');
+            addLoadingContent('landingPage');
         },
         success: function (data) {
             let buttons = '';
@@ -44,58 +40,46 @@ $(function () {
                 });
                 $listGroup.append(buttons);
             });
-            loadingSpinner.setAttribute('display', 'none');
-            $firstContent.removeClass(".loading-screen");
-            $secondContent.css("display", "none");
+            removeSpinner(loadingSpinner);
+            removeLoadingScreen('landingPage');
+            hideSecondContent();
         },
         error: function (data) {
-            $body.append(`
-                <error-modal error="${data.responseText}"></error-modal>
-            `);
-            loadingSpinner.setAttribute('display', 'none');
-            $('#exampleModalCenter').modal('show');
+            removeSpinner(loadingSpinner);
+            appendErrorModal(data);
+            displayModal();
         }
     });
 });
 
 function getGroups(category_id, selectedCategory) {
-    let $cardHolder = $('.card-holder');
     $.ajax({
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/find/groups?category=${category_id}&key=${apiKey}`,
         beforeSend: function () {
-            $("#first-content").remove();
-            loadingSpinner.setAttribute('display', 'block');
-            $secondContent.addClass(".loading-screen");
             header = document.querySelector('app-header');
+            displaySpinner(loadingSpinner);
+            addLoadingContent('secondContent');
+            removeFirstContent();
         },
         success: function (data) {
             header.setAttribute('header', selectedCategory);
+            let $cardHolder = $('.card-holder');
             $.each(data, function (i, item) {
                 let imageUrl = (item.group_photo ||
                     item.key_photo ||
                     item.meta_category.photo || {}).photo_link;
-                $cardHolder.append(`
-                    <div class="col-lg-4 col-md-6 loading">
-                        <group-card urlName="${item.urlname}" imageURL="${imageUrl}"></group-card>
-                    </div>
-                `);
+                appendGroupCard($cardHolder, item, imageUrl);
             });
-            $secondContent.append(`
-                <app-button class="offset-lg-4 col-lg-4 offset-md-3 col-md-6 offset-sm-3 col-sm-6 col-12"></app-button>
-            `);
-            $secondContent.removeClass(".loading-screen");
-            $secondContent.css("display", "flex");
-            loadingSpinner.setAttribute('display', 'none');
+            removeSpinner(loadingSpinner);
+            displaySecondContent(); 
+            removeLoadingScreen('secondContent'); 
+             
         }, 
         error: function (data) {
-            if(document.querySelector('error-modal') === null) {
-                $body.append(`
-                    <error-modal error="${data.responseText}"></error-modal>
-            `   );
-                $('#exampleModalCenter').modal('show');
-            }
-            loadingSpinner.setAttribute('display', 'none');
+            appendErrorModal(data);
+            displayModal();
+            removeSpinner(loadingSpinner);
         }
     });
 

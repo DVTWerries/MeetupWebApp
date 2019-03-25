@@ -10,13 +10,13 @@ import MemberCard from '../components/member-card';
 import GroupPhoto from '../components/group-photo';
 import GroupMeetup from '../components/group-meetup';
 import Header from '../components/header';
-
-
-const apiKey = '1345494f356d223964372b57807f1f79';
-const baseURl = 'https://api.meetup.com';
-const herokuAppURL = 'https://cors-anywhere.herokuapp.com/';
-let $body = $('.body');
+import {apiKey, baseURl, herokuAppURL} from '../scripts/conf';
+import {displayModal, removeSpinner} from './logic';
+import {appendMemberCard, appendMeetupItem, appendPhotoItem, appendLoadingSpinner, 
+        appendErrorModal} from './appender';
+       
 let loadingSpinner;
+let urlParameter = window.location.href.split('?');
 
 customElements.define("error-modal", ErrorModal);
 customElements.define("loading-spinner", LoadingSpinner);
@@ -32,14 +32,12 @@ $('.carousel').carousel({
   
 $(function () {
     let carousalInner = $(`.carousel-inner`);
-    let urlParameter = window.location.href.split('?');
+    let $body = $('.body');
     $.ajax({
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/${urlParameter[1]}?key=${apiKey}`,
         beforeSend: function () {
-            $body.append(`
-                <loading-spinner></loading-spinner>
-            `);
+            appendLoadingSpinner($body);
             loadingSpinner = document.querySelector('loading-spinner');
         },
         success: function (data) {
@@ -97,67 +95,55 @@ $(function () {
                     </div>
                 </div>
             `);
-            getMembers(urlParameter);
-            getMeetups(urlParameter);
-            getHighlights(urlParameter);
+            removeSpinner(loadingSpinner);
         },
         error: function(data) {
-            $body.append(`
-                <error-modal error="${data.responseText}"></error-modal>
-            `);
-            $(".spinner-border").remove();
-            $('#exampleModalCenter').modal('show');
+            removeSpinner(loadingSpinner);
+            appendErrorModal(data);
+            displayModal();
         }
     });
 });
 
-function getMembers(urlParameter) {
-    let member = $('.members');
+
+
+$(function () {
     $.ajax({
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/${urlParameter[1]}/members?key=${apiKey}`,
         success: function (data) {
             $.each(data, function(i, item) {
+                const member = $('.members');
                 let imageUrl = item.photo === undefined ? "..." :
                     item.photo.thumb_link;
-                member.append(`
-                <member-card class="col-lg-4 col-md-4 col-sm-6 col-6"
-                        image="${imageUrl}" 
-                        name="${item.name}">
-                </member-card>
-                `);
+                appendMemberCard(member, item, imageUrl);
             });  
         },
     });
-}
+});
 
-function getMeetups(urlParameter) {
-    let meetupContainer = $('.meetup-container');
+$(function () {
     $.ajax({
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/${urlParameter[1]}/events?status=past&key=${apiKey}`,
         success: function (data) {
+            let meetupContainer = $('.meetup-container');
             $.each(data, function(i, item) {
-                meetupContainer.append(`
-                    <group-meetup name="${item.name}" date="${item.local_date + " " + item.local_time}" RSVP="${item.yes_rsvp_count}" venue="${item.venue.name}" class="col-md-4"></group-meetup>
-                `);
+                appendMeetupItem(meetupContainer, item);
             });   
         },
     });
-}
+});
 
-function getHighlights(urlParameter) {
-    let photoContainer = $('.photos-container');
+$(function () {
     $.ajax({
         type: 'GET',
         url: `${herokuAppURL}${baseURl}/${urlParameter[1]}/photos?key=${apiKey}`,
         success: function (data) {
+            let photoContainer = $('.photos-container');
             $.each(data, function(i, item) {
-                photoContainer.append(`
-                    <group-photo image="${item.photo_link}" class="col-lg-4 col-md-4 col-sm-4 col-6"></group-photo>
-                `);
+                appendPhotoItem(photoContainer, item);
             });
-            loadingSpinner.setAttribute('display', 'none');  
         },
     });
-}
+});

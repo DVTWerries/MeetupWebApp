@@ -17,8 +17,6 @@ export default class Header extends HTMLElement {
 
     attributeChangedCallback(attibute, oldVal, newVal) {
         var h3 = this.querySelector('h3');
-        console.log(h3);
-        console.log(newVal);
         switch(attibute) {
             case 'header':
                 if(h3 !== null) {
@@ -28,7 +26,6 @@ export default class Header extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log('hello');
         let template = `
             <div class="header-style">
                 <a class="navbar-brand col-3 glyphicon glyphicon-chevron-left" href="#"></a>

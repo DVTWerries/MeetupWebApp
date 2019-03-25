@@ -22,7 +22,7 @@ export default class LoadingSpinner extends HTMLElement {
 
         switch(attibute) {
             case 'display':
-                spinner.style.display = `${this.display}`;
+                spinner.style.display = `${this.display}`;       
         }
     }
 

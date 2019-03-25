@@ -38,5 +38,10 @@ export default class ErrorModal extends HTMLElement {
 
 
         this.innerHTML = template;
+        displayModal();
+    }
+
+    displayModal() {
+        $('#exampleModalCenter').modal('show');
     }
 }
